@@ -1,0 +1,42 @@
+[package]
+name = "overproofed-wasm"
+version = "0.1.0"
+edition = "2021"
+authors = ["sqwishy <somebody@froghat.ca>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+# for use with wasm-bindgen --keep-debug
+# debug = true
+lto = true
+opt-level = 's'
+
+[profile.butt]
+inherits = "release"
+debug-assertions = true
+
+[dependencies]
+wasm-bindgen = "=0.2.83"
+js-sys = "*"
+# weighs like 9k?
+console_error_panic_hook = "*"
+overproofed = { version = "*", path = "../overproofed" }
+
+# before, 90 to 67
+# bumpalo = "3"
+
+# this doesn't link right anymore, it tries to pull in malloc and shit even
+# though it has shims i can't get them to load ...
+# zstd   = { version = "*", features = ["bindgen", "wasm"], default-features = false }
+
+# lz4_flex is 9kb, or 7kb after wasm-opt -O3
+lz4_flex = { version = "*" }
+base64 = "=0.13"
+
+# this is smol :)
+# serde = { version = "=1", default-features = false }
+# postcard = { version = "=1", features = ['use-std', 'alloc'] }
+
+# serde-wasm-bindgen and serde_json blow up size by like 50k and 80k

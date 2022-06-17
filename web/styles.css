@@ -1,0 +1,233 @@
+/* dark mode first, light mode at the end of this file in a @media thing */
+
+html
+  { background-color: var(--base12);
+               color: var(--base96);
+             --muted: var(--base72);
+              --help: var(--fond96);
+    /* Avoid line-height below 1.5, firefox does fucking retarded shit with
+     * <input>'s line-height and it won't match other elements
+     * data:text/html, <div style="font: large sans; line-height: 1.2"><input style="font: inherit" value=foo><p>bar 
+     *
+     * Also 1.5 is probably good for accessibility I guess */
+    font: large/1.4 "Brandon Text", "Nunito", sans }
+
+body { font-feature-settings: "tnum" }
+
+*
+  { transition: background-color 200ms cubic-bezier(0.1, 0.8, 0.2, .8),
+                color            200ms cubic-bezier(0.1, 0.8, 0.2, .8) }
+
+p { overflow: hidden; text-overflow: ellipsis }
+
+a, input, button, textarea
+  { background:  transparent;
+    color:       inherit;
+    font:        inherit;
+    text-align:  inherit;
+    text-shadow: inherit }
+button { text-align: center }
+
+h1 { font-size: 1.4em }
+h2 { font-size: 1.2em }
+h3 { font-size: 1.2em }
+h1, h2, h3
+  { padding:      0;
+    margin:       0;
+    text-shadow:  1px 1px var(--base00), -1px -1px var(--base00);
+    font-weight:  bold }
+
+h1 input,
+h2 input,
+h3 input { width: 100% }
+
+/* small { font-weight: lighter } */
+/* small { color: var(--muted) } */
+
+.muted { color: var(--muted) }
+
+details > summary { list-style: none; cursor: pointer }
+
+.help li { list-style-type: '➭ ' }
+
+/* .show-help */
+.show-help .total .bakers::after { display: block; content: 'adsf' }
+
+/* icons */
+
+.icon { display: inline-block }
+.icon svg { vertical-align: text-bottom; margin-bottom: 2px }
+@media (prefers-color-scheme: dark)
+{ .icon svg { filter: drop-shadow(1px 1px var(--base00)) } }
+
+/* overlay */
+
+.icon { position: relative }
+.icon svg:not(:only-child):first-child
+  { mask: radial-gradient(circle at 72% 72%, transparent, transparent 32%, #000 34%, #000) }
+.icon svg + svg
+  { position: absolute; bottom: 0; right: 0; width: .72em; height: .72em }
+
+  button,
+textarea,
+   input
+  { border: 0; padding: 3px 9px; box-sizing: border-box; border-radius: 4px }
+
+textarea:focus-visible,
+   input:focus-visible
+ {}
+
+input::placeholder { color: var(--muted) }
+
+button
+  { cursor:        pointer;
+    border-radius: 4px;
+    text-shadow:   1px 1px var(--base00) }
+button
+  { color: var(--base96); background-color: var(--base00) }
+button:disabled
+  { cursor: not-allowed }
+button:disabled
+  { color: var(--muted); }
+
+button
+  { border: 2px solid transparent;
+    background-color: transparent; }
+
+@media (pointer: fine)
+  { button:enabled:hover,
+    button:focus-visible,
+    input:read-write:hover,
+    input:focus-visible
+    { background-color: var(--fond24);
+      --muted:          var(--fond96);
+      text-shadow:      none } }
+
+button + button { margin-left: 3px }
+
+/* */
+
+section { margin-bottom: 1em }
+
+details > summary,
+p { margin: 9px 9px }
+
+/* .sharelink { text-overflow: ellipsis; white-space: nowrap; overflow: hidden } */
+
+.leading-buttons { display: flex; justify-content: space-between; flex-wrap: wrap }
+
+.bread { max-width: 40em; margin: auto }
+
+.help { border-left: 4px solid var(--base36); color: var(--help) }
+
+/* */
+
+.mix header { display: flex; grid-gap: 9px; align-items: center }
+.mix header > *:first-child { flex-grow: 1 }
+
+.mix footer { display: flex; justify-content: end; flex-wrap: wrap }
+.mix footer div { display: flex; flex-grow: 1; margin-right: 3px }
+
+.is-zero:not(:focus) { color: var(--muted) }
+
+.mix .toggle-move-mode.is-checked
+  { background-color: var(--fond24); }
+
+.item-name { font-weight: bolder; font-variant-caps: normal }
+.item-name.untitled { font-style: italic }
+
+/* mix item */
+
+.mix-item.help-header .bakers,
+.mix-item.help-header .weight,
+.mix-item.help-header .in-other { text-align: center; color: var(--help) }
+
+.mix-item
+  { display: flex; grid-gap: 3px; border-radius: 4px; margin: 3px 0 }
+
+.mix-item .title    { min-width: 7ch; flex: 1 1 16ch }
+.mix-item .is-flour { width: 4ch; flex-shrink: 0}
+.mix-item .bakers,
+.mix-item .weight,
+.mix-item .in-other { min-width: 7ch; max-width: 9ch; flex: 1 2 8ch }
+.mix-item .tool     { width: 4ch; flex-shrink: 0 }
+
+.mix-item .tool,
+.mix-item .percent,
+.mix-item .weight   { text-align: right }
+
+.mix-item input.from-user:read-write { text-decoration: underline }
+/* .mix-item input.from-user:read-write { background: var(--base24) } */
+
+.mix-item .is-flour:not(.is-checked) { color: var(--muted) }
+
+.mix-item.total .title { font-style: italic }
+.mix-item.total .is-flour { visibility: hidden }
+
+/* .mix-item.is-selected { background-color: var(--fond24) } */
+.mix-item {
+  --selected:        transparent;
+  --selected-shadow: transparent;
+  background-color:  var(--selected);
+  border:            1px solid var(--selected-shadow);
+  box-shadow:        var(--selected-shadow) 0 2px }
+.mix-item.is-selected
+  { --selected:        var(--fond24);
+    --selected-shadow: var(--fond12) }
+.mix footer { border: 1px solid transparent } /* alignment */
+
+/* reflow in narrow container */
+
+.mix-item-list
+  { container-type: inline-size }
+
+@container (width < 44ch)
+  { .mix-item { flex-wrap: wrap }
+    .mix-item > .title { flex-basis: 100% }
+    .mix-item .bakers,
+    .mix-item .weight,
+    .mix-item .in-other { min-width: 0; max-width: 30%; flex: 1 1 0 } /* try really hard to not wrap again? */
+    .mix-item { margin: 6px 0 }
+    /* .mix-item { --selected: var(--base00) /1* probably --selected is not a good name *1/ } */
+  }
+
+@media (prefers-color-scheme: light)
+  { html { background-color: var(--base96);
+                      color: var(--base00);
+                    --muted: var(--base48);
+                     --help: var(--fond12); }
+
+    button
+      { color: var(--base00) }
+
+    .help { border-color: var(--base84) }
+
+    .mix-item.is-selected
+      { --selected:        var(--fond84);
+        --selected-shadow: var(--fond72) }
+
+    .mix .toggle-move-mode.is-checked
+      { background-color: var(--fond96); }
+
+    @media (pointer: fine)
+      { button:enabled:hover,
+        button:focus-visible,
+        input:read-write:hover,
+        input:focus-visible
+        { background-color: var(--fond84);
+                   --muted: var(--fond24) } }
+
+    h1, h2, h3, button
+      { text-shadow: none }
+
+    /* @container (width < 44ch) */
+    /*   { .mix-item { --selected: var(--base84) } } */
+  }
+
+@media print
+  { button,
+    .help,
+    .leading-buttons,
+    .tool,
+    .controls { display: none }
+    html { line-height: 1.1 } }

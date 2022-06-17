@@ -1,0 +1,45 @@
+variant = butt
+cargo_opts = --target wasm32-unknown-unknown --color always --profile=butt
+
+tmpdir = /tmp/overproofed-cargo-target
+outdir = public/p
+
+rule cp
+  command = cp $in $out
+
+rule tar-xf
+  command = tar -C $outdir --touch -xf $in
+
+rule sassc
+  command = sassc $in $out
+
+rule wasm-opt
+  command = wasm-opt -O3 $in -o $out
+
+rule cargo-build
+  command = env -C ../overproofed-wasm CARGO_TARGET_DIR=$tmpdir cargo build $cargo_opts
+
+rule wasm-bindgen
+  command = wasm-bindgen $in $
+    --out-dir $outdir $
+    --target web
+
+rule palette
+    command = env WRITE_CSS_VARS=$out python -m mako.cmd < $in > /tmp/palette.html
+
+build $outdir/palette.css:  palette ../misc/palette.mako
+build $outdir/styles.css:   cp      ./styles.css
+build $outdir/brandon.css:  cp      ./brandon/brandon.css
+build $outdir/BrandonText-Regular.otf: tar-xf ./brandon/brandon.tar
+
+build $tmpdir/wasm32-unknown-unknown/$variant/overproofed_wasm.wasm : cargo-build | $
+    ../overproofed-wasm/src/lib.rs $
+    ../overproofed-wasm/Cargo.toml
+
+build $outdir/overproofed_wasm.js $outdir/overproofed_wasm_bg.wasm : wasm-bindgen $
+  $tmpdir/wasm32-unknown-unknown/$variant/overproofed_wasm.wasm
+
+build $outdir/overproofed_wasm_bg-opt.wasm : wasm-opt $
+  $outdir/overproofed_wasm_bg.wasm
+
+# vim: et ts=2 sw=2

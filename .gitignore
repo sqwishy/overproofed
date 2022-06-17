@@ -1,0 +1,9 @@
+target
+scrap
+misc
+*.sqlite
+
+.ninja_log
+Cargo.lock
+__pycache__
+package-lock.json
