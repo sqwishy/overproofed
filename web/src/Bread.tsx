@@ -432,8 +432,7 @@ export const Bread = (props: BreadProps) => {
               <p>In mix tables, it's the percentage of the total amount of each ingredient that comes from the mix.</p>
             </aside>
             <aside class="help">
-              <p><Icon.Info /> For simple recipes, set the <em>total weight</em> <Icon.Two /> of the dough in the first row. Then <Icon.NewIngredient /> add ingredients and set the baker's percentages <Icon.One /> for each.
-              </p>
+              <p><Icon.Info /> For simple recipes, set the total weight <Icon.Two /> of the dough in the first row. Then <Icon.NewIngredient /> add ingredients and set the baker's percentages <Icon.One /> for each. From that information, it should calculate the weight of each item automatically.</p>
             </aside>
           </Show>
 
