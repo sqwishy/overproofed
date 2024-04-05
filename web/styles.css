@@ -156,8 +156,8 @@ p { margin: 9px 9px }
 .mix-item .percent,
 .mix-item .weight   { text-align: right }
 
-.mix-item input.from-user:read-write { text-decoration: underline }
-/* .mix-item input.from-user:read-write { background: var(--base24) } */
+/* .mix-item input.from-user:read-write { text-decoration: underline } */
+.mix-item input.from-user:read-write { background: var(--base24) }
 
 .mix-item .is-flour:not(.is-checked) { color: var(--muted) }
 
@@ -219,6 +219,9 @@ p { margin: 9px 9px }
 
     h1, h2, h3, button
       { text-shadow: none }
+
+    .mix-item input.from-user:read-write
+      { background: var(--base84) }
 
     /* @container (width < 44ch) */
     /*   { .mix-item { --selected: var(--base84) } } */
