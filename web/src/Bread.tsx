@@ -393,7 +393,7 @@ export const Bread = (props: BreadProps) => {
       <article class="bread" classList={{ "show-help": getShowHelp() }} >
 
         <section class="leading-buttons">
-          <p><a class="sharelink" href={shareLink()}><Icon.Link /> Link to this recipe</a></p>
+          <p><a href={shareLink()}><Icon.Link /> Link to this recipe</a></p>
           <button onclick={() => setShowHelp(!getShowHelp())} accesskey="?">
             <Icon.Info /> {getShowHelp() ? "Hide help" : "Show help" }
           </button>
@@ -482,11 +482,11 @@ export const Bread = (props: BreadProps) => {
               )}
             </Show>
             <Show when={!selected().length} keyed>
-              <button onclick={() => update("new-item")}>
+              <button onclick={() => update("new-item")} accessKey="i">
                 <Icon.NewIngredient /> new ingredient
               </button>
             </Show>
-            <button onclick={() => update("new-mix")}>
+            <button onclick={() => update("new-mix")} accessKey="m">
               <Icon.NewTable /> new mix
             </button>
             <Toggle

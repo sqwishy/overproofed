@@ -112,8 +112,6 @@ section { margin-bottom: 1em }
 details > summary,
 p { margin: 9px 9px }
 
-/* .sharelink { text-overflow: ellipsis; white-space: nowrap; overflow: hidden } */
-
 .leading-buttons { display: flex; justify-content: space-between; flex-wrap: wrap }
 
 .bread { max-width: 40em; margin: auto }

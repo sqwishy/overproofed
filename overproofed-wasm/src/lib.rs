@@ -252,11 +252,6 @@ pub fn base64_expand(s: &str) -> Option<String> {
 #[wasm_bindgen]
 pub fn compact_base64(s: &str) -> String {
     let smol = lz4_flex::block::compress_prepend_size(s.as_bytes());
-    dbg!((
-        s.as_bytes().len(),
-        smol.len(),
-        base64::encode_config(&smol, base64::URL_SAFE_NO_PAD).len(),
-    ));
     base64::encode_config(&smol, base64::URL_SAFE_NO_PAD)
 }
 
@@ -394,14 +389,33 @@ impl RecipeWriter {
         let results = JsArray::new();
         let mut solver = wrapped::solve::Solver::new(recipe, values);
 
+        // butt!("{:#?}", &self.recipe);
+
         while let Some((index, value, _math)) = solver.step(values) {
             // let math = solver.math(_math).unwrap();
             // let line = math.line();
             // let math_display = math.display(&values);
             // butt!("{index:>3}\tL{line:>3}\t{math_display}");
 
+            // if value.is_infinite() {
+            //     let math = solver.math(_math).unwrap();
+            //     let line = math.line();
+            //     let math_display = math.display(&values);
+            //     butt!("UH OH {index:>3}\tL{line:>3}\t{math_display}");
+            // }
+
             results.set(index as u32, value.into());
         }
+
+        // if solver.unsolved_value_to_math_index_pairs().len() > 0 {
+        //     butt!("unsolved...");
+        //     for &(index, _math) in solver.unsolved_value_to_math_index_pairs().iter() {
+        //         let math = solver.math(_math).unwrap();
+        //         let line = math.line();
+        //         let math_display = math.display(&values);
+        //         butt!("{index:>3}\tL{line:>3}\t{math_display}");
+        //     }
+        // }
 
         Some(results)
     }

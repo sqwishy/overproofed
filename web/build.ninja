@@ -33,6 +33,7 @@ build $outdir/brandon.css:  cp      ./brandon/brandon.css
 build $outdir/BrandonText-Regular.otf: tar-xf ./brandon/brandon.tar
 
 build $tmpdir/wasm32-unknown-unknown/$variant/overproofed_wasm.wasm : cargo-build | $
+    ../overproofed/src/lib.rs $
     ../overproofed-wasm/src/lib.rs $
     ../overproofed-wasm/Cargo.toml
 
