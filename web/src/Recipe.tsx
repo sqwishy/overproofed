@@ -2,7 +2,7 @@ export type Recipe = {
   items: Item[];
   total: Mix;
   mixes: Mix[];
-  final: number[];
+  final: (number | null)[];
 };
 
 export type Item = {
@@ -18,9 +18,9 @@ export type Mix = {
 };
 
 export type Amounts = {
-  weight: number;
-  bakers: number;
-  in_other: number;
+  weight: number | null;
+  bakers: number | null;
+  in_other: number | null;
 };
 
 export const TOTAL_FLOUR: Item = { name: "total flour", is_flour: false };
@@ -34,7 +34,7 @@ export const Mix = (): Mix => ({
   total: Amounts(),
 });
 
-export const Amounts = (): Amounts => ({ weight: 0.0, bakers: 0.0, in_other: 0.0 });
+export const Amounts = (): Amounts => ({ weight: null, bakers: null, in_other: null });
 
 export const defaultRecipe = () => ({
   items: [
@@ -66,5 +66,5 @@ export const defaultRecipe = () => ({
       amounts: [Amounts(), null, null, null, { ...Amounts(), bakers: 2.0 }, null],
     },
   ],
-  final: Array(6).fill(0),
+  final: Array(6).fill(null),
 });

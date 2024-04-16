@@ -1,3 +1,11 @@
+export function isNull(v: any) {
+   return v === undefined || v === null;
+}
+
+export function isNonNull(v: any) {
+   return !isNull(v);
+}
+
 export function isZero(v: any) {
    return v === undefined || v === 0 || Number.isNaN(v);
 }

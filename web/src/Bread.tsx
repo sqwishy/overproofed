@@ -13,7 +13,9 @@ import {
 import { createStore, unwrap, reconcile } from "solid-js/store";
 
 import {
+  isZero,
   isNonZero,
+  isNonNull,
   percent,
   parsePercent,
   grams,
@@ -105,7 +107,7 @@ export const Bread = (props: BreadProps) => {
     return url.href;
   };
 
-  const [getShowHelp, setShowHelp] = createSignal<bool>(false);
+  const [getShowHelp, setShowHelp] = createSignal<boolean>(false);
 
   createEffect(() => {
     let hash, string, recipe: Recipe;
@@ -114,7 +116,7 @@ export const Bread = (props: BreadProps) => {
 
     if (   !(string = wasm.base64_expand(hash))
         || !(recipe = JSON.parse(string)))
-      return console.error("failed to load state from hash", { hash, string, recipe });
+      return console.error("failed to load state from hash", { hash, string });
 
     /* maybe send this this through update() instead? */
     batch(() => {
@@ -206,9 +208,9 @@ export const Bread = (props: BreadProps) => {
       writeValue(writer.percent_of_total(), amounts.in_other, ...path, 'in_other')
     }
 
-    function writeValue(value_index: number, input_value: number, ...path: Path[]) {
+    function writeValue(value_index: number, input_value: number | null, ...path: Path[]) {
       paths.set(value_index, path);
-      if (input_value !== 0)
+      if (input_value !== null)
         writer.set(value_index, input_value)
     }
 
@@ -394,7 +396,7 @@ export const Bread = (props: BreadProps) => {
 
         <section class="leading-buttons">
           <p><a href={shareLink()}><Icon.Link /> Link to this recipe</a></p>
-          <button onclick={() => setShowHelp(!getShowHelp())} accesskey="?">
+          <button onclick={() => setShowHelp(!getShowHelp())} accessKey="?">
             <Icon.Info /> {getShowHelp() ? "Hide help" : "Show help" }
           </button>
 
@@ -588,7 +590,7 @@ export const Bread = (props: BreadProps) => {
                   <Show when={i() in state.final} fallback={"???"}>
                     <PairField
                       class="weight"
-                      fmt={FmtWeight}
+                      fmt={FmtNull(FmtWeight)}
                       value={Pair.of(
                         state.final[i()],
                         coalesce(solved.final[i()], () => 0)
@@ -612,7 +614,7 @@ export const Bread = (props: BreadProps) => {
                   <Show when={i() in state.final} fallback={"???"}>
                     <PairField
                       class="weight"
-                      fmt={FmtWeight}
+                      fmt={FmtNull(FmtWeight)}
                       value={Pair.of(
                         state.mixes[i()].total.weight,
                         coalesce(solved.mixes[i()]?.total.weight, () => 0)
@@ -746,9 +748,9 @@ function MixTableHeader() {
 type RowUpdate =
   | { name: string }
   | { is_flour: boolean }
-  | { bakers: number }
-  | { in_other: number }
-  | { weight: number };
+  | { bakers: number | null }
+  | { in_other: number | null }
+  | { weight: number | null };
 
 type ItemRowProps = {
   item: Item;
@@ -788,19 +790,19 @@ function ItemRow(props: ItemRowProps) {
       />
       <PairField
         class="percent bakers"
-        fmt={FmtPercent}
+        fmt={FmtNull(FmtPercent)}
         value={Pair.map(self.amounts, (a) => a.bakers)}
         update={(bakers) => self.update({ bakers })}
       />
       <PairField
         class="weight"
-        fmt={FmtWeight}
+        fmt={FmtNull(FmtWeight)}
         value={Pair.map(self.amounts, (a) => a.weight)}
         update={(weight) => self.update({ weight })}
       />
       <PairField
         class="percent in-other"
-        fmt={FmtPercent}
+        fmt={FmtNull(FmtPercent)}
         value={Pair.map(self.amounts, (a) => a.in_other)}
         update={(in_other) => self.update({ in_other })}
       />
@@ -861,6 +863,12 @@ const FmtWeight: Fmt<number> = {
   maxlength: "12",
 };
 
+const FmtNull = <T,>({ parse, display, ...fmt }: Fmt<T>): Fmt<T | null> => ({
+      parse: (s: string) => s === "" ? null : parse(s),
+      display: (v: T | null) => v === null ? "" : display(v),
+      ...fmt,
+    })
+
 type FieldProps<T> = {
   value: T;
   update?: (_: T) => void;
@@ -876,11 +884,12 @@ function Field<T>(props: FieldProps<T>) {
     <input
       size="14"
       type="text"
+      placeholder="--" // ∅ not sure which to use here
       {...fmt_rest}
       {...rest}
       class={shared.class}
-      classList={{ "is-zero": self.value === 0, ...shared.classList }}
-      value={display(self.value)}
+      classList={{ "is-zero": isZero(self.value), ...shared.classList }}
+      value={self.value === null ? "" : display(self.value)}
       onchange={(e) => {
         /* parse("0") and parse("00") evaluates to the same thing, if done
          * in sequence, the second value will not cause the input's
@@ -904,8 +913,8 @@ function PairField<T>(props: PairFieldProps<T>) {
 
   return (
     <Field
-      classList={{ "from-user": isNonZero(Pair.first(self.value)) }}
-      value={Pair.unwrap(self.value, (a, b) => (isNonZero(a) ? a : b))}
+      classList={{ "from-user": isNonNull(Pair.first(self.value)) }}
+      value={Pair.unwrap(self.value, (a, b) => (isNonNull(a) ? a : b))}
       {...rest}
     />
   );
@@ -951,7 +960,3 @@ function FlourToggle(props: ToggleProps) {
 }
 
 const EmSpace = () => <>&emsp;</>;
-
-function Note(_: JSX.HTMLAttributes<HTMLElement>) {
-  return null;
-}
