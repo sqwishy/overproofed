@@ -28,7 +28,12 @@ export function percent(f: number) {
 
 export function grams(n: number) {
   // FIXME use user agent locale when parsing supports it
-  return n.toLocaleString("en", { maximumFractionDigits: 0 }) + 'g';
+  const maximumFractionDigits
+      = n <   0 ? 3
+      : n <  10 ? 2
+      : n < 100 ? 1
+      : 0
+  return n.toLocaleString("en", { maximumFractionDigits }) + 'g';
 }
 
 export function parseNum(s: string) {
