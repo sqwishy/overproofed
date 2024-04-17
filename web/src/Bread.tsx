@@ -39,6 +39,7 @@ type Update =
   | "remove-recipe-items"
   | { "remove-mix": number }
   | { "update-mix": MixTableUpdate; mix: "total" | number }
+  | { "update-final": number, weight: number | null }
   | { "update-mix-name": string; mix: "total" | number }
   | { "add-mix-items": number }
   | { "remove-mix-items": number };
@@ -324,6 +325,12 @@ export const Bread = (props: BreadProps) => {
       return;
     }
 
+    if ("update-final" in update) {
+        const { "update-final": index, weight } = update;
+        setState("final", index, weight)
+        return;
+    }
+
     if ("update-mix" in update) {
       if ("move-to" in update["update-mix"]) {
         const {
@@ -597,7 +604,7 @@ export const Bread = (props: BreadProps) => {
                         state.final[i()],
                         coalesce(solved.final[i()], () => 0)
                       )}
-                      readonly
+                      update={(u) => update({ "update-final": i(), weight: u })}
                     />
                   </Show>
                 </div>
