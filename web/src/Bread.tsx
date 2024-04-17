@@ -25,7 +25,7 @@ import { Selection, createSelection } from "./Ui/Selection";
 import { rowKbNav } from "./Ui/Focus";
 import * as Icon from "./icon";
 import * as wasm from "../public/p/overproofed_wasm.js";
-import {Amounts, Mix, Recipe, Item, defaultRecipe, TOTAL, TOTAL_FLOUR } from "./Recipe";
+import { Amounts, Mix, Recipe, Item, defaultRecipe, TOTAL, TOTAL_FLOUR, serializeToString, deserializeFromString } from "./Recipe";
 import { deepcopy, last, dropLast, appends, setrattr, donotwant, removesAt, getsAt, insertsAt, nullIfEmpty, coalesce } from "./Halp";
 
 const UNDO_LENGTH = 64;
@@ -99,15 +99,17 @@ export const Bread = (props: BreadProps) => {
   const [getIsMoveMode, setIsMoveMode] = createSignal(false);
   createEffect(() => selected().length === 0 && setIsMoveMode(false));
 
+  const [getShowHelp, setShowHelp] = createSignal<boolean>(false);
+
+  /* this is instead of a copy for undo and redo */
   const saveState = () => JSON.stringify(state);
   const loadState = (s: string) => JSON.parse(s);
+
   const shareLink = () => {
     let url = new URL(window.location.href);
-    url.hash = wasm.compact_base64(saveState());
+    url.hash = wasm.compact_base64(serializeToString(state));
     return url.href;
   };
-
-  const [getShowHelp, setShowHelp] = createSignal<boolean>(false);
 
   createEffect(() => {
     let hash, string, recipe: Recipe;
@@ -115,7 +117,7 @@ export const Bread = (props: BreadProps) => {
     if (!(hash = props.history().url.hash.slice(1))) return;
 
     if (   !(string = wasm.base64_expand(hash))
-        || !(recipe = JSON.parse(string)))
+        || !(recipe = deserializeFromString(string)))
       return console.error("failed to load state from hash", { hash, string });
 
     /* maybe send this this through update() instead? */

@@ -1,3 +1,40 @@
+export type V0 = V0.Recipe;
+export type V1 = { v: 1 } & Recipe;
+export type HashDeserializable = V0 | V1;
+export type HashSerialized = V1;
+
+export function serializeToString(recipe: Recipe) {
+  const toSave: HashSerialized = { v: 1, ...recipe};
+  return JSON.stringify(toSave);
+}
+
+export function deserializeFromString(s: string) {
+  const value = JSON.parse(s);
+
+  /* todo error checking and handling */
+  if (value.v === undefined) {
+    const zeroToNull = (v: number) => v === 0 ? null : v;
+    const v0ZMapAmounts =
+      ({ weight, bakers, in_other }: V0.Amounts) =>
+      ({ weight: zeroToNull(weight), bakers: zeroToNull(bakers), in_other: zeroToNull(in_other) });
+    const v0MapMix =
+      ({ name, amounts, total, flour }: V0.Mix) =>
+      ({ name, amounts: amounts.map((a) => a === null ? null : v0ZMapAmounts(a)), total: v0ZMapAmounts(total), flour: v0ZMapAmounts(flour) })
+
+    const { items, total, mixes, final }: V0.Recipe = value;
+    return {
+      items,
+      total: v0MapMix(total),
+      mixes: mixes.map(v0MapMix),
+      final: final.map(zeroToNull),
+    }
+
+  } else {
+    return value
+
+  }
+}
+
 export type Recipe = {
   items: Item[];
   total: Mix;
@@ -68,3 +105,30 @@ export const defaultRecipe = () => ({
   ],
   final: Array(6).fill(null),
 });
+
+namespace V0 {
+  export type Recipe = {
+    items: Item[];
+    total: Mix;
+    mixes: Mix[];
+    final: (number)[];
+  };
+
+  export type Item = {
+    name: string;
+    is_flour: boolean;
+  };
+
+  export type Mix = {
+    name: string;
+    amounts: (Amounts | null)[];
+    flour: Amounts;
+    total: Amounts;
+  };
+
+  export type Amounts = {
+    weight: number;
+    bakers: number;
+    in_other: number;
+  };
+}
