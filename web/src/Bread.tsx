@@ -411,7 +411,7 @@ export const Bread = (props: BreadProps) => {
 
           <Show when={getShowHelp()}>
             <aside class="help">
-              <p><Icon.Info /> The link above will take you back to this recipe. Share it or save it to see this recipe later.</p>
+              <p><Icon.Info /> The link above will take you back to this recipe. Share it or bookmark it to see this recipe later.</p>
               <p><em>Here are some links to example recipes.</em></p>
               <ul>
                 <li><a href="#BQIAAPYceyJpdGVtcyI6W3sibmFtZSI6IndoaXRlIiwiaXNfZmxvdXIiOnRydWV9LCEAmWF0ZXIg8J-avyYASGZhbHMnAJ9zYWx0IPCfp4ImAApfeWVhc3QiAAClXSwidG90YWwiOngAoFNhdHVyZGF5IFeiAPIZIEJyZWFkIChieSBLZW4gRm9ya2lzaCBpbiBGV1NZKSIsImFtb3VudNwA9hd3ZWlnaHQiOjEwMDAsImJha2VycyI6MCwiaW5fb3RoZXIiOjB9LCgACCUAPy43MigAEz8wMjEpABQqMDQpADNdLCJsAQ-DAAMKLgAHGwEE2AAIsAAKLQBwfSwibWl4ZQcBAGYA8AVpbmFsIjpbMCwwLDAsMCwwLDBdfQ">Saturday White Bread (by Ken Forkish in FWSY)</a></li>
@@ -435,15 +435,16 @@ export const Bread = (props: BreadProps) => {
 
           <Show when={getShowHelp()}>
             <aside class="help">
-              <p><Icon.Info /> This table lists the <em>total</em> amounts of each ingredient in the recipe.</p>
+              <p><Icon.Info /> Set <em>bakers percentages</em> <Icon.One /> and your total dough <em>weight</em> <Icon.Two /> to calculate the <em>weight</em> of each ingredient for a recipe.</p>
               <p><Icon.Flour /> is a flour ingredient, added to total flour</p>
               <p><Icon.NonFlour /> is non-flour ingredient, excluded from total flour</p>
+              <p>A field that has been set in the recipe looks filled in, like this: <Field class="from-user numberic" readonly value={1.23} fmt={FmtWeight} />. The other fields in the recipe are calculated from those set fields. Typing a value into the field sets it. Clearing the field unsets it allowing it to be a calculated value instead.</p>
               <p>The <em>baker's percentage</em> <Icon.One /> expresses the <em>weight</em> <Icon.Two /> as a percentage of the <em>total flour</em> in the table.</p>
-              <p>Here, in the totals table, column <Icon.Three /> is the percentage of the total amount of each ingredient that comes from all mixes.</p>
-              <p>In mix tables, it's the percentage of the total amount of each ingredient that comes from the mix.</p>
+              <p>This table lists the <em>total</em> amounts of each ingredient in the entire recipe. Mixes, like a preferment, will have their own tables.</p>
+              <p>In the totals table, column <Icon.Three aria-label="three" /> is the percentage of the total amount of each ingredient that comes from all mixes. In mix tables, it's the percentage of the total amount of each ingredient that comes from the mix.</p>
             </aside>
             <aside class="help">
-              <p><Icon.Info /> For simple recipes, set the total weight <Icon.Two /> of the dough in the first row. Then <Icon.NewIngredient /> add ingredients and set the baker's percentages <Icon.One /> for each. From that information, it should calculate the weight of each item automatically.</p>
+              <p><Icon.Info /> For simple recipes, set the <em>total weight</em> <Icon.Two /> of the dough in the first row. Then <Icon.NewIngredient /> add ingredients and set the <em>baker's percentages</em> <Icon.One /> for each. Using those amounts, it should calculate the weight of each ingredient in your recipe.</p>
             </aside>
           </Show>
 

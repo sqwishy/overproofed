@@ -18,7 +18,8 @@ body { font-feature-settings: "tnum" }
   { transition: background-color 200ms cubic-bezier(0.1, 0.8, 0.2, .8),
                 color            200ms cubic-bezier(0.1, 0.8, 0.2, .8) }
 
-p { overflow: hidden; text-overflow: ellipsis }
+/* i forgor why i add this but it causes some funny y overflow clipping on input in help text */
+/* p { overflow: hidden; text-overflow: ellipsis } */
 
 a, input, button, textarea
   { background:  transparent;
@@ -117,6 +118,7 @@ p { margin: 9px 9px }
 .bread { max-width: 40em; margin: auto }
 
 .help { border-left: 4px solid var(--base36); color: var(--help) }
+.help input { width: 5em }
 
 /* */
 
@@ -154,8 +156,8 @@ p { margin: 9px 9px }
 .mix-item .percent,
 .mix-item .weight   { text-align: right }
 
-/* .mix-item input.from-user:read-write { text-decoration: underline } */
-.mix-item input.from-user:read-write { background: var(--base24) }
+input.numberic { text-align: right }
+input.from-user { background: var(--base24) }
 
 .mix-item .is-flour:not(.is-checked) { color: var(--muted) }
 
@@ -218,7 +220,7 @@ p { margin: 9px 9px }
     h1, h2, h3, button
       { text-shadow: none }
 
-    .mix-item input.from-user:read-write
+    input.from-user
       { background: var(--base84) }
 
     /* @container (width < 44ch) */

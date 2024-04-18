@@ -84,7 +84,7 @@ export const defaultRecipe = () => ({
   ],
   total: {
     ...Mix(),
-    name: "pizza 🍕",
+    name: "pizza 🍕 one ball = 240g",
     amounts: [
       { ...Amounts(), in_other: 1.0 },
       { ...Amounts() },
