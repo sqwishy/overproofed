@@ -65,7 +65,8 @@ details > summary { list-style: none; cursor: pointer }
 
 .icon { position: relative }
 .icon svg:not(:only-child):first-child
-  { mask: radial-gradient(circle at 72% 72%, transparent, transparent 32%, #000 34%, #000) }
+  {         mask-image: radial-gradient(circle at 72% 72%, transparent, transparent 32%, #000 34%, #000);
+    -webkit-mask-image: radial-gradient(circle at 72% 72%, transparent, transparent 32%, #000 34%, #000) }
 .icon svg + svg
   { position: absolute; bottom: 0; right: 0; width: .72em; height: .72em }
 
