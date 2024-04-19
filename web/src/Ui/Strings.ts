@@ -15,7 +15,7 @@ export function isNonZero(v: any) {
 }
 
 export function percent(f: number) {
-  return (100 * f).toLocaleString(undefined, { maximumFractionDigits: 2 }) + '%';
+  return (100 * f).toLocaleString("en", { maximumFractionDigits: 2 }) + '%';
 }
 
 // export function kg(grams: number) {
