@@ -27,7 +27,8 @@ rule wasm-bindgen
 rule palette
     command = env WRITE_CSS_VARS=$out python -m mako.cmd < $in > /tmp/palette.html
 
-build $outdir/palette.css:  palette ../misc/palette.mako
+# build $outdir/palette.css:  palette ../misc/palette.mako
+build $outdir/palette.css:  cp      ./palette.css
 build $outdir/styles.css:   cp      ./styles.css
 build $outdir/brandon.css:  cp      ./brandon/brandon.css
 build $outdir/BrandonText-Regular.otf: tar-xf ./brandon/brandon.tar

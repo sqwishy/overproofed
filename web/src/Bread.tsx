@@ -259,7 +259,7 @@ export const Bread = (props: BreadProps) => {
       setState("items", appends(item));
       setState("total", "amounts", appends(Amounts()));
       setState("mixes", {}, "amounts", appends(null));
-      setState("final", appends(0));
+      setState("final", appends(null));
       setFocus(lastItem?.querySelector("input"));
       return;
     }

@@ -1,0 +1,62 @@
+:root {
+--base00: #191f26;
+--base12: #243037;
+--base24: #344448;
+--base36: #495a59;
+--base48: #62726d;
+--base60: #7e8c82;
+--base72: #9ea798;
+--base84: #c1c4b1;
+--base96: #e6e1cf;
+
+--gred00: #340403;
+--gred12: #510d0a;
+--gred24: #770808;
+--gred36: #9d0006;
+--gred48: #bd1611;
+--gred60: #db2c1d;
+--gred72: #fb4934;
+--gred84: #fb8f7d;
+--gred96: #facbc2;
+
+--fond00: #350806;
+--fond12: #520e0a;
+--fond24: #790004;
+--fond36: #9d0006;
+--fond48: #b82d1c;
+--fond60: #d15024;
+--fond72: #e47532;
+--fond84: #ed9f55;
+--fond96: #eec992;
+
+--fond_00: #340209;
+--fond_12: #52080a;
+--fond_24: #6f1c0b;
+--fond_36: #8b340d;
+--fond_48: #a74d12;
+--fond_60: #c1691b;
+--fond_72: #d88731;
+--fond_84: #e8a757;
+--fond_96: #eec992;
+
+--ironsand00: #445b69;
+--ironsand12: #5a687f;
+--ironsand24: #747490;
+--ironsand36: #917f9d;
+--ironsand48: #ae8ca4;
+--ironsand60: #c89ba6;
+--ironsand72: #dfaca6;
+--ironsand84: #efc1a6;
+--ironsand96: #f8d9ab;
+
+--sandiron00: #f8d9ab;
+--sandiron12: #d8cd9d;
+--sandiron24: #b7c094;
+--sandiron36: #99b28f;
+--sandiron48: #7ea28b;
+--sandiron60: #689186;
+--sandiron72: #587f7f;
+--sandiron84: #4c6d76;
+--sandiron96: #445b69;
+
+}

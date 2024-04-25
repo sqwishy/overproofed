@@ -1,0 +1,95 @@
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url("./BrandonText-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+  src: url("./BrandonText-RegularItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url("./BrandonText-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+  src: url("./BrandonText-LightItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  src: url("./BrandonText-Thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+  src: url("./BrandonText-ThinItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("./BrandonText-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url("./BrandonText-MediumItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("./BrandonText-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+  src: url("./BrandonText-BoldItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url("./BrandonText-Black.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Brandon Text";
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+  src: url("./BrandonText-BlackItalic.otf") format("opentype");
+}
