@@ -945,11 +945,15 @@ function Toggle(props: ToggleProps) {
     "update",
     "readonly",
     "children",
+    "class",
+    "classList",
   ]);
   return (
     <button
+      class={self.class}
       classList={{
         "is-checked": self.value == true,
+        ...self.classList
       }}
       disabled={self.readonly}
       aria-checked={self.value}
